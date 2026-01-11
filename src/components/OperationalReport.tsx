@@ -99,13 +99,13 @@ const OperationalReport = ({
       {/* Images */}
       <div className="grid md:grid-cols-2 gap-4 mb-2 print:break-inside-avoid">
         <div className="thermogram-card">
-          <img src={thermalImage} alt="Imagem Termográfica" className="thermogram-image h-[150px] w-full object-cover" />
+          <img src={thermalImage} alt="Imagem Termográfica" className="thermogram-image h-[150px] w-full object-contain" />
           <div className="p-2 bg-secondary/30">
             <h4 className="text-xs font-semibold">Foto painel</h4>
           </div>
         </div>
         <div className="thermogram-card">
-          <img src={realImage} alt="Imagem Real" className="thermogram-image h-[150px] w-full object-cover" />
+          <img src={realImage} alt="Imagem Real" className="thermogram-image h-[150px] w-full object-contain" />
           <div className="p-2 bg-secondary/30">
             <h4 className="text-xs font-semibold mb-1">Foto termográfica</h4>
             <div className="flex flex-wrap gap-3">
