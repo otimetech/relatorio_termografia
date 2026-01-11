@@ -1,3 +1,18 @@
+export interface Cliente {
+  id: number;
+  cnpj: string;
+  logo: string | null;
+  nome: string;
+  ativo: boolean;
+  email: string;
+  cidade: string;
+  estado: string;
+  endereco: string;
+  telefone: string;
+  pessoa_contato: string;
+  departamento_contato: string;
+}
+
 export interface Relatorio {
   id: number;
   created_at: string;
@@ -8,6 +23,7 @@ export interface Relatorio {
   n_relatorio: string;
   id_user: number;
   tipoVazamento: string | null;
+  cliente?: Cliente;
 }
 
 export interface Termografia {
@@ -32,6 +48,7 @@ export interface Termografia {
 
 export interface RelatorioResponse {
   relatorio: Relatorio;
+  cliente?: Cliente;
   termografias: Termografia[];
 }
 

@@ -74,7 +74,10 @@ const Index = () => {
     );
   }
 
-  const { relatorio, termografias } = data;
+  const { relatorio, cliente, termografias } = data;
+  
+  // Usar cliente do response ou do relatorio
+  const clienteData = cliente || relatorio.cliente;
 
   // Filtrar termografias com problemas (alerta ou crítico)
   const criticalEquipment = termografias
@@ -150,14 +153,22 @@ const Index = () => {
         
         {/* Cover Page */}
         <div className="report-page print-break text-center">
-          <div className="mb-8">
+          <div className="flex justify-between items-start mb-8">
             <img 
               src={logoJundpred} 
               alt="JundPred - Manutenção Preditiva" 
-              className="h-24 mx-auto mb-6"
+              className="h-20"
             />
-            <h1 className="text-3xl font-bold text-primary mb-2">MANUTENÇÃO PREDITIVA</h1>
+            {clienteData?.logo && (
+              <img 
+                src={clienteData.logo} 
+                alt={clienteData.nome} 
+                className="h-20 object-contain"
+              />
+            )}
           </div>
+
+          <h1 className="text-3xl font-bold text-primary mb-4">MANUTENÇÃO PREDITIVA</h1>
 
           <div className="bg-primary text-primary-foreground py-4 px-6 rounded-lg mb-8">
             <h2 className="text-2xl font-bold">RELATÓRIO DE MANUTENÇÃO PREDITIVA</h2>
@@ -172,6 +183,14 @@ const Index = () => {
               className="max-w-md mx-auto rounded-lg shadow-lg"
             />
           </div>
+
+          {clienteData && (
+            <div className="bg-secondary/30 rounded-lg p-4 mb-6 text-left">
+              <h3 className="font-semibold text-primary mb-2">Cliente</h3>
+              <p className="font-bold text-lg">{clienteData.nome}</p>
+              <p className="text-sm text-muted-foreground">CNPJ: {clienteData.cnpj}</p>
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-8 text-left max-w-lg mx-auto">
             <div>
@@ -199,7 +218,17 @@ const Index = () => {
 
           <div className="mb-8">
             <p className="text-sm text-muted-foreground">A/C:</p>
-            <p className="font-semibold">Departamento de Manutenção</p>
+            <p className="font-semibold">{clienteData?.pessoa_contato || "Departamento de Manutenção"}</p>
+            {clienteData?.departamento_contato && (
+              <p className="text-sm text-muted-foreground">{clienteData.departamento_contato}</p>
+            )}
+            {clienteData && (
+              <div className="mt-2 text-sm">
+                <p className="font-medium">{clienteData.nome}</p>
+                <p className="text-muted-foreground">{clienteData.email}</p>
+                <p className="text-muted-foreground">{clienteData.telefone}</p>
+              </div>
+            )}
           </div>
 
           <div className="mb-8">
