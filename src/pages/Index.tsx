@@ -74,10 +74,12 @@ const Index = () => {
     );
   }
 
-  const { relatorio, cliente, termografias } = data;
+  const { relatorio, cliente, usuario, termografias } = data;
   
   // Usar cliente do response ou do relatorio
   const clienteData = cliente || relatorio.cliente;
+  // Usar usuario do response ou do relatorio
+  const usuarioData = usuario || relatorio.usuario;
 
   // Filtrar termografias com problemas (alerta ou crítico)
   const criticalEquipment = termografias
@@ -241,11 +243,20 @@ const Index = () => {
           <div className="mb-8">
             <p className="mb-4">Atenciosamente,</p>
             <div className="border-l-4 border-primary pl-4">
-              <p className="font-semibold">Luís Henrique Guimarães Stefani</p>
-              <p className="text-muted-foreground text-sm">Diretor Comercial</p>
-              <p className="text-sm mt-2">luis@jundpred.com.br</p>
-              <p className="text-sm">Tel.: (11) 2817-0616</p>
-              <p className="text-sm">Cel.: (11) 98112-2244</p>
+              <p className="font-semibold">{usuarioData?.nome || "Luís Henrique Guimarães Stefani"}</p>
+              <p className="text-muted-foreground text-sm">{usuarioData?.funcao || "Diretor Comercial"}</p>
+              {usuarioData?.departamento && (
+                <p className="text-muted-foreground text-sm">{usuarioData.departamento}</p>
+              )}
+              <p className="text-sm mt-2">{usuarioData?.email || "luis@jundpred.com.br"}</p>
+              {usuarioData?.telefone && <p className="text-sm">Tel.: {usuarioData.telefone}</p>}
+              {usuarioData?.foto_assinatura && (
+                <img 
+                  src={usuarioData.foto_assinatura} 
+                  alt="Assinatura" 
+                  className="h-16 mt-4"
+                />
+              )}
             </div>
           </div>
         </div>

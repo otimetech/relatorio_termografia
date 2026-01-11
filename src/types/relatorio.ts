@@ -13,6 +13,18 @@ export interface Cliente {
   departamento_contato: string;
 }
 
+export interface Usuario {
+  id: number;
+  nome: string;
+  ativo: boolean;
+  email: string;
+  funcao: string | null;
+  telefone: string | null;
+  foto_perfil: string | null;
+  departamento: string | null;
+  foto_assinatura: string | null;
+}
+
 export interface Relatorio {
   id: number;
   created_at: string;
@@ -24,6 +36,7 @@ export interface Relatorio {
   id_user: number;
   tipoVazamento: string | null;
   cliente?: Cliente;
+  usuario?: Usuario;
 }
 
 export interface Termografia {
@@ -49,6 +62,7 @@ export interface Termografia {
 export interface RelatorioResponse {
   relatorio: Relatorio;
   cliente?: Cliente;
+  usuario?: Usuario;
   termografias: Termografia[];
 }
 
