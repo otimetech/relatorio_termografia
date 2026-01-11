@@ -121,8 +121,12 @@ const Index = () => {
     value: Math.round(statusCounts.off / total * 100),
     color: "bg-border"
   }, {
-    label: "ALARME/CRÍTICO",
-    value: Math.round((statusCounts.alert + statusCounts.critical) / total * 100),
+    label: "ALARME",
+    value: Math.round(statusCounts.alert / total * 100),
+    color: "bg-warning"
+  }, {
+    label: "CRÍTICO",
+    value: Math.round(statusCounts.critical / total * 100),
     color: "bg-destructive"
   }];
 
