@@ -416,7 +416,7 @@ Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
           
           <h2 className="report-title">OUTROS SERVIÇOS</h2>
           
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
+          <div className="grid md:grid-cols-2 print:grid-cols-2 gap-4 mb-8">
             {[{
             title: "Análise de Vibrações",
             desc: "Off-line e on-line, solo e estrutural"
