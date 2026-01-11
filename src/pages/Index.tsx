@@ -399,10 +399,10 @@ Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
           <div className="mb-8">
             <p className="mb-4">Atenciosamente,</p>
             <div className="border-l-4 border-primary pl-4">
-              <p className="font-semibold">Paulo dos Santos Filho</p>
-              <p className="text-muted-foreground text-sm">DEPTO. DE PREDITIVA</p>
-              <p className="text-sm mt-2">paulo.santos@jundpred.com.br</p>
-              <p className="text-sm">Tel.: (11) 2817-0616</p>
+              <p className="font-semibold">{usuarioData?.nome || 'Nome do Responsável'}</p>
+              <p className="text-muted-foreground text-sm">{usuarioData?.departamento || 'DEPTO. DE PREDITIVA'}</p>
+              <p className="text-sm mt-2">{usuarioData?.email || 'email@jundpred.com.br'}</p>
+              <p className="text-sm">{usuarioData?.telefone || 'Tel.: (11) 2817-0616'}</p>
             </div>
           </div>
         </div>
