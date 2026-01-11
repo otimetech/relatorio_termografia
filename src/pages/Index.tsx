@@ -168,8 +168,6 @@ const Index = () => {
             )}
           </div>
 
-          <h1 className="text-3xl font-bold text-primary mb-4">MANUTENÇÃO PREDITIVA</h1>
-
           <div className="bg-primary text-primary-foreground py-4 px-6 rounded-lg mb-8">
             <h2 className="text-2xl font-bold">RELATÓRIO DE MANUTENÇÃO PREDITIVA</h2>
             <p className="text-lg mt-2">REF. INSPEÇÃO {relatorio.tipo?.toUpperCase() || "TERMOGRÁFICA"}</p>
