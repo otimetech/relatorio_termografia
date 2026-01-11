@@ -294,23 +294,50 @@
   /* Images: keep proportion and never split */
   img {
     display: block;
-    max-width: 100% !important;
-    height: auto !important;
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
 
-  /* Cover logo: keep a fixed size in print (override global img rule) */
+  /* Cover logo: fixed size in print */
   img.cover-logo {
     height: 12mm !important;
     width: auto !important;
     max-width: 55mm !important;
   }
 
-  /* Thermogram images are the main split culprit: constrain height */
+  /* Cover image: fixed size in print */
+  img.cover-image {
+    height: 80mm !important;
+    width: auto !important;
+    max-width: 140mm !important;
+  }
+
+  /* Header logo: fixed size in print */
+  img.header-logo {
+    height: 10mm !important;
+    width: auto !important;
+    max-width: 45mm !important;
+  }
+
+  /* Signature: fixed size in print */
+  img.signature-image {
+    height: 12mm !important;
+    width: auto !important;
+    max-width: 50mm !important;
+  }
+
+  /* Report images (thermogram/panel): fixed size in print */
+  img.report-image {
+    height: 35mm !important;
+    width: auto !important;
+    max-width: 85mm !important;
+    object-fit: contain !important;
+  }
+
+  /* Thermogram images fallback */
   .thermogram-image {
     width: 100% !important;
-    max-height: 90mm !important;
+    max-height: 35mm !important;
     object-fit: contain !important;
   }
 

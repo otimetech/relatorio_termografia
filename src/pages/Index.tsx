@@ -166,7 +166,7 @@ const Index = () => {
           </div>
 
           <div className="mb-8">
-            <img src={termografiaCover} alt="Imagem Termográfica" className="max-w-md mx-auto rounded-lg shadow-lg" />
+            <img src={termografiaCover} alt="Imagem Termográfica" className="cover-image max-w-md mx-auto rounded-lg shadow-lg" />
           </div>
 
           {clienteData && <div className="bg-secondary/30 rounded-lg p-4 mb-6 text-left">
@@ -227,7 +227,7 @@ Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
               {usuarioData?.departamento && <p className="text-muted-foreground text-sm">{usuarioData.departamento}</p>}
               <p className="text-sm mt-2">{usuarioData?.email || "luis@jundpred.com.br"}</p>
               {usuarioData?.telefone && <p className="text-sm">Tel.: {usuarioData.telefone}</p>}
-              {usuarioData?.foto_assinatura && <img src={usuarioData.foto_assinatura} alt="Assinatura" className="h-16 mt-4" />}
+              {usuarioData?.foto_assinatura && <img src={usuarioData.foto_assinatura} alt="Assinatura" className="signature-image h-16 mt-4" />}
             </div>
           </div>
         </div>

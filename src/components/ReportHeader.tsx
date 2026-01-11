@@ -7,7 +7,7 @@ const ReportHeader = () => {
         <img 
           src={logoJundpred} 
           alt="JundPred - Manutenção Preditiva" 
-          className="h-16 w-auto print:h-16 print:w-auto print:max-w-[150px]"
+          className="header-logo h-16 w-auto"
         />
       </div>
       <div className="text-right">
