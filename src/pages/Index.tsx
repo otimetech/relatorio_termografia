@@ -7,27 +7,29 @@ import TemperatureTable from "@/components/TemperatureTable";
 import StatusChart from "@/components/StatusChart";
 import { useRelatorio } from "@/hooks/useRelatorio";
 import { mapApiStatusToStatusType, Termografia } from "@/types/relatorio";
-
 import logoJundpred from "@/assets/logo-jundpred.jpg";
 import termografiaCover from "@/assets/termografia-cover.jpg";
-
 const Index = () => {
-  const { idRelatorio: paramId } = useParams<{ idRelatorio: string }>();
+  const {
+    idRelatorio: paramId
+  } = useParams<{
+    idRelatorio: string;
+  }>();
   const [searchParams] = useSearchParams();
   const queryId = searchParams.get("idRelatorio");
-  
+
   // Suporta tanto /relatorio/:id quanto /?idRelatorio=id
   const idRelatorio = paramId || queryId;
-  
-  const { data, isLoading, error } = useRelatorio(idRelatorio);
-  
+  const {
+    data,
+    isLoading,
+    error
+  } = useRelatorio(idRelatorio);
   const handlePrint = () => {
     window.print();
   };
-
   if (!idRelatorio) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    return <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="text-center max-w-md">
           <h1 className="text-2xl font-bold text-primary mb-4">Relatório de Termografia</h1>
           <p className="text-muted-foreground mb-6">
@@ -39,58 +41,50 @@ const Index = () => {
             <p>/?idRelatorio=8</p>
           </div>
         </div>
-      </div>
-    );
+      </div>;
   }
-
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+    return <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-muted-foreground">Carregando relatório...</p>
         </div>
-      </div>
-    );
+      </div>;
   }
-
   if (error) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    return <div className="min-h-screen bg-background flex items-center justify-center p-4">
         <div className="text-center max-w-md">
           <div className="text-destructive text-5xl mb-4">⚠️</div>
           <h1 className="text-xl font-bold text-destructive mb-2">Erro ao carregar relatório</h1>
           <p className="text-muted-foreground">{(error as Error).message}</p>
         </div>
-      </div>
-    );
+      </div>;
   }
-
   if (!data) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+    return <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-muted-foreground">Nenhum dado encontrado.</p>
-      </div>
-    );
+      </div>;
   }
+  const {
+    relatorio,
+    cliente,
+    usuario,
+    termografias
+  } = data;
 
-  const { relatorio, cliente, usuario, termografias } = data;
-  
   // Usar cliente do response ou do relatorio
   const clienteData = cliente || relatorio.cliente;
   // Usar usuario do response ou do relatorio
   const usuarioData = usuario || relatorio.usuario;
 
   // Filtrar termografias com problemas (alerta ou crítico)
-  const criticalEquipment = termografias
-    .filter((t) => t.status.toLowerCase() !== "normal")
-    .map((t, index) => ({
-      id: index + 1,
-      name: `${t.localizacao} - ${t.tag}`,
-      sector: t.setor,
-      status: mapApiStatusToStatusType(t.status),
-      observation: `VIDE R.O. ${String(index + 1).padStart(2, "0")}`,
-    }));
+  const criticalEquipment = termografias.filter(t => t.status.toLowerCase() !== "normal").map((t, index) => ({
+    id: index + 1,
+    name: `${t.localizacao} - ${t.tag}`,
+    sector: t.setor,
+    status: mapApiStatusToStatusType(t.status),
+    observation: `VIDE R.O. ${String(index + 1).padStart(2, "0")}`
+  }));
 
   // Todos os equipamentos
   const allEquipment = termografias.map((t, index) => ({
@@ -98,50 +92,52 @@ const Index = () => {
     name: `${t.localizacao} - ${t.tag}`,
     sector: t.setor,
     status: mapApiStatusToStatusType(t.status),
-    statusLabel: t.status.toUpperCase(),
+    statusLabel: t.status.toUpperCase()
   }));
 
   // Calcular estatísticas de status
-  const statusCounts = termografias.reduce(
-    (acc, t) => {
-      const status = mapApiStatusToStatusType(t.status);
-      if (status === "normal") acc.normal++;
-      else if (status === "alert") acc.alert++;
-      else if (status === "critical") acc.critical++;
-      else if (status === "maintenance") acc.maintenance++;
-      else if (status === "off") acc.off++;
-      return acc;
-    },
-    { normal: 0, alert: 0, critical: 0, maintenance: 0, off: 0 }
-  );
-
+  const statusCounts = termografias.reduce((acc, t) => {
+    const status = mapApiStatusToStatusType(t.status);
+    if (status === "normal") acc.normal++;else if (status === "alert") acc.alert++;else if (status === "critical") acc.critical++;else if (status === "maintenance") acc.maintenance++;else if (status === "off") acc.off++;
+    return acc;
+  }, {
+    normal: 0,
+    alert: 0,
+    critical: 0,
+    maintenance: 0,
+    off: 0
+  });
   const total = termografias.length || 1;
-  const statusData = [
-    { label: "NORMAIS", value: Math.round((statusCounts.normal / total) * 100), color: "bg-success" },
-    { label: "EM MANUTENÇÃO", value: Math.round((statusCounts.maintenance / total) * 100), color: "bg-muted-foreground" },
-    { label: "DESLIGADOS", value: Math.round((statusCounts.off / total) * 100), color: "bg-border" },
-    { label: "ALARME/CRÍTICO", value: Math.round(((statusCounts.alert + statusCounts.critical) / total) * 100), color: "bg-destructive" },
-  ];
+  const statusData = [{
+    label: "NORMAIS",
+    value: Math.round(statusCounts.normal / total * 100),
+    color: "bg-success"
+  }, {
+    label: "EM MANUTENÇÃO",
+    value: Math.round(statusCounts.maintenance / total * 100),
+    color: "bg-muted-foreground"
+  }, {
+    label: "DESLIGADOS",
+    value: Math.round(statusCounts.off / total * 100),
+    color: "bg-border"
+  }, {
+    label: "ALARME/CRÍTICO",
+    value: Math.round((statusCounts.alert + statusCounts.critical) / total * 100),
+    color: "bg-destructive"
+  }];
 
   // Termografias com dados para relatório operacional (que têm fotos ou descrição de problema)
-  const operationalReports = termografias.filter(
-    (t) => t.status.toLowerCase() !== "normal" && (t.foto_painel || t.foto_camera || t.descricao_problema)
-  );
+  const operationalReports = termografias.filter(t => t.status.toLowerCase() !== "normal" && (t.foto_painel || t.foto_camera || t.descricao_problema));
 
   // Formatar data
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("pt-BR");
   };
-
-  return (
-    <div className="min-h-screen bg-background py-8 px-4 print:p-0 print:bg-white">
+  return <div className="min-h-screen bg-background py-8 px-4 print:p-0 print:bg-white">
       {/* Print Button */}
       <div className="no-print fixed top-4 right-4 z-50">
-        <button 
-          onClick={handlePrint}
-          className="bg-primary text-primary-foreground px-6 py-3 rounded-lg shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2 font-medium"
-        >
+        <button onClick={handlePrint} className="bg-primary text-primary-foreground px-6 py-3 rounded-lg shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2 font-medium">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"></polyline>
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
@@ -156,18 +152,8 @@ const Index = () => {
         {/* Cover Page */}
         <div className="report-page print-break text-center">
           <div className="flex justify-between items-start mb-8">
-            <img 
-              src={logoJundpred} 
-              alt="JundPred - Manutenção Preditiva" 
-              className="h-20"
-            />
-            {clienteData?.logo && (
-              <img 
-                src={clienteData.logo} 
-                alt={clienteData.nome} 
-                className="h-20 object-contain"
-              />
-            )}
+            <img src={logoJundpred} alt="JundPred - Manutenção Preditiva" className="h-20" />
+            {clienteData?.logo}
           </div>
 
           <div className="bg-primary text-primary-foreground py-4 px-6 rounded-lg mb-8">
@@ -177,20 +163,14 @@ const Index = () => {
           </div>
 
           <div className="mb-8">
-            <img 
-              src={termografiaCover} 
-              alt="Imagem Termográfica" 
-              className="max-w-md mx-auto rounded-lg shadow-lg"
-            />
+            <img src={termografiaCover} alt="Imagem Termográfica" className="max-w-md mx-auto rounded-lg shadow-lg" />
           </div>
 
-          {clienteData && (
-            <div className="bg-secondary/30 rounded-lg p-4 mb-6 text-left">
+          {clienteData && <div className="bg-secondary/30 rounded-lg p-4 mb-6 text-left">
               <h3 className="font-semibold text-primary mb-2">Cliente</h3>
               <p className="font-bold text-lg">{clienteData.nome}</p>
               <p className="text-sm text-muted-foreground">CNPJ: {clienteData.cnpj}</p>
-            </div>
-          )}
+            </div>}
 
           <div className="grid grid-cols-2 gap-8 text-left max-w-lg mx-auto">
             <div>
@@ -219,22 +199,18 @@ const Index = () => {
           <div className="mb-8">
             <p className="text-sm text-muted-foreground">A/C:</p>
             <p className="font-semibold">{clienteData?.pessoa_contato || "Departamento de Manutenção"}</p>
-            {clienteData?.departamento_contato && (
-              <p className="text-sm text-muted-foreground">{clienteData.departamento_contato}</p>
-            )}
-            {clienteData && (
-              <div className="mt-2 text-sm">
+            {clienteData?.departamento_contato && <p className="text-sm text-muted-foreground">{clienteData.departamento_contato}</p>}
+            {clienteData && <div className="mt-2 text-sm">
                 <p className="font-medium">{clienteData.nome}</p>
                 <p className="text-muted-foreground">{clienteData.email}</p>
                 <p className="text-muted-foreground">{clienteData.telefone}</p>
-              </div>
-            )}
+              </div>}
           </div>
 
           <div className="mb-8">
             <h2 className="report-title">Relatório de Manutenção Preditiva por INSPEÇÃO {relatorio.tipo?.toUpperCase() || "TERMOGRÁFICA"}</h2>
-            <p className="text-foreground leading-relaxed">
-              Referente à inspeção realizada no dia <strong>{formatDate(relatorio.dataExe)}</strong>.
+            <p className="text-foreground leading-relaxed">Referente à inspeção realizada nos paineis de distribuição no dia 03/01/2026.
+Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
               <br />
               Relatório Nº <strong>{relatorio.n_relatorio}</strong>.
             </p>
@@ -245,18 +221,10 @@ const Index = () => {
             <div className="border-l-4 border-primary pl-4">
               <p className="font-semibold">{usuarioData?.nome || "Luís Henrique Guimarães Stefani"}</p>
               <p className="text-muted-foreground text-sm">{usuarioData?.funcao || "Diretor Comercial"}</p>
-              {usuarioData?.departamento && (
-                <p className="text-muted-foreground text-sm">{usuarioData.departamento}</p>
-              )}
+              {usuarioData?.departamento && <p className="text-muted-foreground text-sm">{usuarioData.departamento}</p>}
               <p className="text-sm mt-2">{usuarioData?.email || "luis@jundpred.com.br"}</p>
               {usuarioData?.telefone && <p className="text-sm">Tel.: {usuarioData.telefone}</p>}
-              {usuarioData?.foto_assinatura && (
-                <img 
-                  src={usuarioData.foto_assinatura} 
-                  alt="Assinatura" 
-                  className="h-16 mt-4"
-                />
-              )}
+              {usuarioData?.foto_assinatura && <img src={usuarioData.foto_assinatura} alt="Assinatura" className="h-16 mt-4" />}
             </div>
           </div>
         </div>
@@ -369,24 +337,15 @@ const Index = () => {
         </div>
 
         {/* Critical Equipment List */}
-        {criticalEquipment.length > 0 && (
-          <div className="report-page print-break">
+        {criticalEquipment.length > 0 && <div className="report-page print-break">
             <ReportHeader />
-            <EquipmentTable 
-              title="LISTAGEM DOS BARRAMENTOS EM ALARME / CRÍTICOS" 
-              equipment={criticalEquipment}
-              showObservation={true}
-            />
-          </div>
-        )}
+            <EquipmentTable title="LISTAGEM DOS BARRAMENTOS EM ALARME / CRÍTICOS" equipment={criticalEquipment} showObservation={true} />
+          </div>}
 
         {/* Full Equipment List */}
         <div className="report-page print-break">
           <ReportHeader />
-          <EquipmentTable 
-            title="LISTAGEM DOS PAINÉIS E EQUIPAMENTOS" 
-            equipment={allEquipment}
-          />
+          <EquipmentTable title="LISTAGEM DOS PAINÉIS E EQUIPAMENTOS" equipment={allEquipment} />
         </div>
 
         {/* Status Overview */}
@@ -396,8 +355,7 @@ const Index = () => {
         </div>
 
         {/* Operational Reports Header */}
-        {operationalReports.length > 0 && (
-          <>
+        {operationalReports.length > 0 && <>
             <div className="report-page">
               <ReportHeader />
               <h2 className="report-title text-center text-3xl">RELATÓRIOS OPERACIONAIS</h2>
@@ -407,32 +365,14 @@ const Index = () => {
             </div>
 
             {/* Operational Reports */}
-            {operationalReports.map((termo, index) => (
-              <OperationalReport
-                key={termo.id}
-                id={String(index + 1).padStart(2, "0")}
-                area={termo.setor}
-                equipment={`${termo.localizacao} - ${termo.tag}`}
-                components={termo.componente || "N/A"}
-                date={formatDate(relatorio.dataExe)}
-                status={mapApiStatusToStatusType(termo.status)}
-                emissivity="0.95"
-                maxTemp={termo.temp_aquecimento ? `${termo.temp_aquecimento} °C` : "N/A"}
-                maxAdmissibleTemp={termo.temp_admissivel ? `${termo.temp_admissivel}°C` : "N/A"}
-                distance="≈1 m"
-                thermalImage={termo.foto_painel || ""}
-                realImage={termo.foto_camera || ""}
-                readings={termo.temp_aquecimento ? [
-                  { label: "Temp. Medida", value: `${termo.temp_aquecimento} °C` },
-                  { label: "Temp. Admissível", value: `${termo.temp_admissivel} °C` },
-                ] : []}
-                problem={termo.descricao_problema || termo.observacao || "Verificar equipamento"}
-                classification={termo.status.toLowerCase() === "crítico" ? "INTERVENÇÃO IMEDIATA" : "INTERVENÇÃO PROGRAMADA"}
-                recommendations={termo.recomendacao ? [termo.recomendacao] : ["Realizar manutenção preventiva"]}
-              />
-            ))}
-          </>
-        )}
+            {operationalReports.map((termo, index) => <OperationalReport key={termo.id} id={String(index + 1).padStart(2, "0")} area={termo.setor} equipment={`${termo.localizacao} - ${termo.tag}`} components={termo.componente || "N/A"} date={formatDate(relatorio.dataExe)} status={mapApiStatusToStatusType(termo.status)} emissivity="0.95" maxTemp={termo.temp_aquecimento ? `${termo.temp_aquecimento} °C` : "N/A"} maxAdmissibleTemp={termo.temp_admissivel ? `${termo.temp_admissivel}°C` : "N/A"} distance="≈1 m" thermalImage={termo.foto_painel || ""} realImage={termo.foto_camera || ""} readings={termo.temp_aquecimento ? [{
+          label: "Temp. Medida",
+          value: `${termo.temp_aquecimento} °C`
+        }, {
+          label: "Temp. Admissível",
+          value: `${termo.temp_admissivel} °C`
+        }] : []} problem={termo.descricao_problema || termo.observacao || "Verificar equipamento"} classification={termo.status.toLowerCase() === "crítico" ? "INTERVENÇÃO IMEDIATA" : "INTERVENÇÃO PROGRAMADA"} recommendations={termo.recomendacao ? [termo.recomendacao] : ["Realizar manutenção preventiva"]} />)}
+          </>}
 
         {/* Final Considerations */}
         <div className="report-page print-break">
@@ -470,20 +410,31 @@ const Index = () => {
           <h2 className="report-title">OUTROS SERVIÇOS</h2>
           
           <div className="grid md:grid-cols-2 gap-4 mb-8">
-            {[
-              { title: "Análise de Vibrações", desc: "Off-line e on-line, solo e estrutural" },
-              { title: "Inspeção Termográfica", desc: "Painéis, cabines, fornos, mancais, etc." },
-              { title: "Alinhamento a Laser", desc: "De eixos e polias + calços calibrados" },
-              { title: "Balanceamento Dinâmico", desc: "Realizado no local – 1 a 4 planos" },
-              { title: "Ultrassom – Caça Vazamentos", desc: "Ar comprimido, vapor, gases e elétrica" },
-              { title: "MCA – Inspeção Elétrica", desc: "Avaliação de circuitos em motores elétricos" },
-              { title: "Análise de Óleo", desc: "Lubrificante / pacote industrial" },
-            ].map((service, index) => (
-              <div key={index} className="info-card hover:shadow-md transition-shadow">
+            {[{
+            title: "Análise de Vibrações",
+            desc: "Off-line e on-line, solo e estrutural"
+          }, {
+            title: "Inspeção Termográfica",
+            desc: "Painéis, cabines, fornos, mancais, etc."
+          }, {
+            title: "Alinhamento a Laser",
+            desc: "De eixos e polias + calços calibrados"
+          }, {
+            title: "Balanceamento Dinâmico",
+            desc: "Realizado no local – 1 a 4 planos"
+          }, {
+            title: "Ultrassom – Caça Vazamentos",
+            desc: "Ar comprimido, vapor, gases e elétrica"
+          }, {
+            title: "MCA – Inspeção Elétrica",
+            desc: "Avaliação de circuitos em motores elétricos"
+          }, {
+            title: "Análise de Óleo",
+            desc: "Lubrificante / pacote industrial"
+          }].map((service, index) => <div key={index} className="info-card hover:shadow-md transition-shadow">
                 <h4 className="font-semibold text-primary">{service.title}</h4>
                 <p className="text-sm text-muted-foreground">{service.desc}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           <div className="bg-primary text-primary-foreground rounded-lg p-6 text-center">
@@ -502,8 +453,6 @@ const Index = () => {
         </div>
 
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
