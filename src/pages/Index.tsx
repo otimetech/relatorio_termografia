@@ -47,9 +47,28 @@ const allEquipment = [
 ];
 
 const Index = () => {
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-background py-8 px-4 print:p-0 print:bg-white">
+      {/* Print Button */}
+      <div className="no-print fixed top-4 right-4 z-50">
+        <button 
+          onClick={handlePrint}
+          className="bg-primary text-primary-foreground px-6 py-3 rounded-lg shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2 font-medium"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Imprimir A4
+        </button>
+      </div>
+
+      <div className="a4-container">
         
         {/* Cover Page */}
         <div className="report-page print-break text-center">
