@@ -14,38 +14,36 @@ const temperatureLimits: TemperatureLimit[] = [
   { component: "Fusíveis (corpo)", maxTemp: "100°C" },
   { component: "Seccionadoras", maxTemp: "50°C" },
   { component: "Conexões", maxTemp: "60°C" },
-  { component: "Transformadores a óleo (núcleo)", maxTemp: "80°C" },
+  { component: "Transformadores a óleo - ponto mais quente – (núcleo)", maxTemp: "80°C" },
   { component: "Transformadores a óleo (óleo)", maxTemp: "65°C" },
-  { component: "Transformadores a seco", maxTemp: "115°C a 180°C*" },
+  { component: "Transformadores a seco", maxTemp: "De 115°C a 180°C*" },
 ];
 
 const TemperatureTable = () => {
   return (
-    <div className="report-section">
+    <div className="report-section" style={{ breakInside: 'avoid', pageBreakInside: 'avoid' }}>
       <h3 className="report-subtitle">3.4 - Máxima Temperatura Admissível (MTA)</h3>
-      <p className="text-sm text-muted-foreground mb-4">
+      <p className="text-xs text-muted-foreground mb-2">
         Utilizam-se como máxima temperatura admissível de componentes de diversos fabricantes, 
         valores indicativos obtidos através de ensaios e experiência em campo:
       </p>
-      <div className="overflow-x-auto">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>Componente</th>
-              <th className="w-40">Temperatura Máxima</th>
+      <table className="data-table w-full text-xs" style={{ breakInside: 'avoid', pageBreakInside: 'avoid' }}>
+        <thead>
+          <tr>
+            <th className="text-left py-1 px-2">Componente</th>
+            <th className="text-right py-1 px-2 w-32">Temperatura Máxima</th>
+          </tr>
+        </thead>
+        <tbody>
+          {temperatureLimits.map((item, index) => (
+            <tr key={index}>
+              <td className="py-0.5 px-2">{item.component}</td>
+              <td className="py-0.5 px-2 text-right font-mono">{item.maxTemp}</td>
             </tr>
-          </thead>
-          <tbody>
-            {temperatureLimits.map((item, index) => (
-              <tr key={index}>
-                <td>{item.component}</td>
-                <td className="font-mono font-medium">{item.maxTemp}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="text-xs text-muted-foreground mt-2 italic">
+          ))}
+        </tbody>
+      </table>
+      <p className="text-[10px] text-muted-foreground mt-1 italic">
         *De acordo com a classe de isolação do transformador em questão.
       </p>
     </div>
