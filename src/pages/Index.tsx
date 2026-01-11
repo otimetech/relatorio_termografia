@@ -283,11 +283,15 @@ Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
                   Nesta fase, são anotadas a temperatura do componente, a temperatura ambiente, a temperatura 
                   máxima admissível do componente, a velocidade do vento, a carga nominal e a carga do 
                   componente no momento da medição.
-                </p>
+              </p>
               </div>
             </div>
           </div>
+        </div>
 
+        {/* Temperature Table Page */}
+        <div className="report-page print-break">
+          <ReportHeader />
           <TemperatureTable />
         </div>
 
