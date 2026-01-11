@@ -9,10 +9,11 @@ interface StatusChartProps {
 }
 
 const defaultStatusData: StatusData[] = [
-  { label: "NORMAIS", value: 94, color: "bg-success" },
+  { label: "NORMAIS", value: 92, color: "bg-success" },
   { label: "EM MANUTENÇÃO", value: 1, color: "bg-muted-foreground" },
   { label: "DESLIGADOS", value: 1, color: "bg-border" },
-  { label: "ALARME/CRÍTICO", value: 4, color: "bg-destructive" },
+  { label: "ALARME", value: 3, color: "bg-warning" },
+  { label: "CRÍTICO", value: 3, color: "bg-destructive" },
 ];
 
 const StatusChart = ({ statusData = defaultStatusData }: StatusChartProps) => {
