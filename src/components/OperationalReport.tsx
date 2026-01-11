@@ -97,7 +97,7 @@ const OperationalReport = ({
       </div>
 
       {/* Images */}
-      <div className="grid md:grid-cols-2 gap-4 mb-4">
+      <div className="grid md:grid-cols-2 gap-5 mb-2">
         <div className="thermogram-card">
           <img src={thermalImage} alt="Imagem Termográfica" className="thermogram-image max-h-[120px] w-full object-cover" />
           <div className="p-2 bg-secondary/30">
