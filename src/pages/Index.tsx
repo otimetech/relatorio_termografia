@@ -364,12 +364,14 @@ Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
 
         {/* Operational Reports Header */}
         {operationalReports.length > 0 && <>
-            <div className="report-page">
+            <div className="report-page flex flex-col">
               <ReportHeader />
-              <h2 className="report-title text-center text-3xl">RELATÓRIOS OPERACIONAIS</h2>
-              <p className="text-center text-muted-foreground">
-                Detalhamento das ocorrências encontradas durante a inspeção termográfica
-              </p>
+              <div className="flex-1 flex flex-col items-center justify-center">
+                <h2 className="report-title text-center text-3xl">RELATÓRIOS OPERACIONAIS</h2>
+                <p className="text-center text-muted-foreground">
+                  Detalhamento das ocorrências encontradas durante a inspeção termográfica
+                </p>
+              </div>
             </div>
 
             {/* Operational Reports */}
