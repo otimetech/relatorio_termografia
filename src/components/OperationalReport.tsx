@@ -97,7 +97,7 @@ const OperationalReport = ({
       </div>
 
       {/* Images */}
-      <div className="grid md:grid-cols-2 gap-4 mb-2 print:break-inside-avoid">
+      <div className="grid grid-cols-2 gap-4 mb-2 print:break-inside-avoid">
         <div className="thermogram-card">
           <img src={thermalImage} alt="Imagem Termográfica" className="thermogram-image h-[150px] w-full object-contain" />
           <div className="p-2 bg-secondary/30">
