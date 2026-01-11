@@ -300,6 +300,13 @@
     page-break-inside: avoid !important;
   }
 
+  /* Cover logo: keep a fixed size in print (override global img rule) */
+  img.cover-logo {
+    height: 12mm !important;
+    width: auto !important;
+    max-width: 55mm !important;
+  }
+
   /* Thermogram images are the main split culprit: constrain height */
   .thermogram-image {
     width: 100% !important;

@@ -156,7 +156,7 @@ const Index = () => {
         {/* Cover Page */}
         <div className="report-page print-break text-center">
           <div className="flex justify-start items-start mb-8">
-            <img src={logoJundpred} alt="JundPred - Manutenção Preditiva" className="h-20 print:h-12 w-auto" />
+            <img src={logoJundpred} alt="JundPred - Manutenção Preditiva" className="cover-logo h-20 w-auto" />
           </div>
 
           <div className="bg-primary text-primary-foreground py-4 px-6 rounded-lg mb-8">
