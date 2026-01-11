@@ -81,7 +81,7 @@ const OperationalReport = ({
           <p className="font-mono font-semibold">{emissivity}</p>
         </div>
         <div className="info-card">
-          <p className="text-xs text-muted-foreground mb-1">Temp. Máxima</p>
+          <p className="text-xs text-muted-foreground mb-1">Temp. Medida</p>
           <p className={`temperature-reading ${getTempClass(maxTemp, maxAdmissibleTemp)}`}>
             {maxTemp}
           </p>
