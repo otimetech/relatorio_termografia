@@ -97,21 +97,21 @@ const OperationalReport = ({
       </div>
 
       {/* Images */}
-      <div className="grid grid-cols-2 gap-4 mb-2 print:break-inside-avoid">
+      <div className="grid grid-cols-2 gap-4 mb-2 print:gap-2 print:mb-1 print:break-inside-avoid">
         <div className="thermogram-card">
-          <img src={thermalImage} alt="Imagem Termográfica" className="thermogram-image h-[150px] w-full object-contain" />
-          <div className="p-2 bg-secondary/30">
-            <h4 className="text-xs font-semibold">Foto painel</h4>
+          <img src={thermalImage} alt="Imagem Termográfica" className="thermogram-image h-[150px] print:h-[100px] w-full object-contain" />
+          <div className="p-2 print:p-1 bg-secondary/30">
+            <h4 className="text-xs font-semibold print:text-[10px]">Foto painel</h4>
           </div>
         </div>
         <div className="thermogram-card">
-          <img src={realImage} alt="Imagem Real" className="thermogram-image h-[150px] w-full object-contain" />
-          <div className="p-2 bg-secondary/30">
-            <h4 className="text-xs font-semibold mb-1">Foto termográfica</h4>
-            <div className="flex flex-wrap gap-3">
+          <img src={realImage} alt="Imagem Real" className="thermogram-image h-[150px] print:h-[100px] w-full object-contain" />
+          <div className="p-2 print:p-1 bg-secondary/30">
+            <h4 className="text-xs font-semibold mb-1 print:text-[10px] print:mb-0">Foto termográfica</h4>
+            <div className="flex flex-wrap gap-3 print:gap-1">
               {readings.map((reading, index) => <div key={index} className="flex items-center gap-1">
-                  <span className="text-xs text-muted-foreground">{reading.label}:</span>
-                  <span className="font-mono text-xs font-medium">{reading.value}</span>
+                  <span className="text-xs print:text-[9px] text-muted-foreground">{reading.label}:</span>
+                  <span className="font-mono text-xs print:text-[9px] font-medium">{reading.value}</span>
                 </div>)}
             </div>
           </div>
