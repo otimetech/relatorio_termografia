@@ -97,18 +97,18 @@ const OperationalReport = ({
       </div>
 
       {/* Images */}
-      <div className="grid grid-cols-2 gap-4 mb-2 print:gap-2 print:mb-1 print:break-inside-avoid">
-        <div className="thermogram-card">
-          <img src={thermalImage} alt="Imagem Termográfica" className="report-image h-[150px] w-full object-contain" />
-          <div className="p-2 print:p-1 bg-secondary/30">
+      <div className="grid grid-cols-2 gap-4 mb-2 print:gap-2 print:mb-1 print:break-inside-avoid items-center">
+        <div className="thermogram-card flex flex-col items-center">
+          <img src={thermalImage} alt="Imagem Termográfica" className="report-image h-[150px] object-contain mx-auto" />
+          <div className="p-2 print:p-1 bg-secondary/30 w-full text-center">
             <h4 className="text-xs font-semibold print:text-[10px]">Foto painel</h4>
           </div>
         </div>
-        <div className="thermogram-card">
-          <img src={realImage} alt="Imagem Real" className="report-image h-[150px] w-full object-contain" />
-          <div className="p-2 print:p-1 bg-secondary/30">
+        <div className="thermogram-card flex flex-col items-center">
+          <img src={realImage} alt="Imagem Real" className="report-image h-[150px] object-contain mx-auto" />
+          <div className="p-2 print:p-1 bg-secondary/30 w-full text-center">
             <h4 className="text-xs font-semibold mb-1 print:text-[10px] print:mb-0">Foto termográfica</h4>
-            <div className="flex flex-wrap gap-3 print:gap-1">
+            <div className="flex flex-wrap gap-3 print:gap-1 justify-center">
               {readings.map((reading, index) => <div key={index} className="flex items-center gap-1">
                   <span className="text-xs print:text-[9px] text-muted-foreground">{reading.label}:</span>
                   <span className="font-mono text-xs print:text-[9px] font-medium">{reading.value}</span>
