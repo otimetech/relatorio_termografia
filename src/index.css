@@ -308,10 +308,29 @@
     background-color: hsl(0 72% 51%) !important;
   }
 
-  /* Prevent element breaks */
-  img, table, .thermogram-card {
+  /* Prevent element breaks + keep images inside the A4 page */
+  img {
+    display: block;
+    max-width: 100% !important;
+    height: auto !important;
     page-break-inside: avoid;
     break-inside: avoid;
+  }
+
+  table,
+  .thermogram-card,
+  .thermogram-card *,
+  .report-section,
+  .report-header {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Thermogram images: limit height so they don't "spill" and get split */
+  .thermogram-image {
+    width: 100% !important;
+    max-height: 92mm;
+    object-fit: contain;
   }
 
   /* Font sizes for print */
