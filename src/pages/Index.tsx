@@ -447,12 +447,14 @@ Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
               </div>)}
           </div>
 
-          <div className="bg-primary text-primary-foreground rounded-lg p-6 text-center">
-            <h3 className="text-xl font-bold mb-2">PLANOS DE MANUTENÇÃO</h3>
-            <p className="text-sm opacity-90">Consultoria e criação de plano personalizado</p>
-            <div className="mt-4">
-              <h4 className="font-semibold">TREINAMENTOS DE PREDITIVA</h4>
-              <p className="text-sm opacity-90">Análise de vibração e Termografia – N1</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="info-card hover:shadow-md transition-shadow">
+              <h4 className="font-semibold text-primary">PLANOS DE MANUTENÇÃO</h4>
+              <p className="text-sm text-muted-foreground">Consultoria e criação de plano personalizado</p>
+            </div>
+            <div className="info-card hover:shadow-md transition-shadow">
+              <h4 className="font-semibold text-primary">TREINAMENTOS DE PREDITIVA</h4>
+              <p className="text-sm text-muted-foreground">Análise de vibração e Termografia – N1</p>
             </div>
           </div>
 
