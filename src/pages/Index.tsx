@@ -438,21 +438,16 @@ Relatório Nº 123.<strong>{formatDate(relatorio.dataExe)}</strong>.
           }, {
             title: "Análise de Óleo",
             desc: "Lubrificante / pacote industrial"
+          }, {
+            title: "PLANOS DE MANUTENÇÃO",
+            desc: "Consultoria e criação de plano personalizado"
+          }, {
+            title: "TREINAMENTOS DE PREDITIVA",
+            desc: "Análise de vibração e Termografia – N1"
           }].map((service, index) => <div key={index} className="info-card hover:shadow-md transition-shadow">
                 <h4 className="font-semibold text-primary">{service.title}</h4>
                 <p className="text-sm text-muted-foreground">{service.desc}</p>
               </div>)}
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="info-card hover:shadow-md transition-shadow">
-              <h4 className="font-semibold text-primary">PLANOS DE MANUTENÇÃO</h4>
-              <p className="text-sm text-muted-foreground">Consultoria e criação de plano personalizado</p>
-            </div>
-            <div className="info-card hover:shadow-md transition-shadow">
-              <h4 className="font-semibold text-primary">TREINAMENTOS DE PREDITIVA</h4>
-              <p className="text-sm text-muted-foreground">Análise de vibração e Termografia – N1</p>
-            </div>
           </div>
 
           <div className="text-center mt-8 pt-6 border-t border-border">
