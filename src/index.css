@@ -221,10 +221,10 @@
   }
 }
 
-/* A4 Print Styles - WYSIWYG */
+/* A4 Print Styles - match A4 page box (Chrome/Edge friendly) */
 @page {
   size: A4 portrait;
-  margin: 0;
+  margin: 10mm;
 }
 
 @media print {
@@ -234,7 +234,6 @@
   }
 
   html, body {
-    width: 210mm;
     margin: 0 !important;
     padding: 0 !important;
     background: white !important;
@@ -244,56 +243,67 @@
     display: none !important;
   }
 
+  /* Content box inside @page margins (A4 210x297 - 10mm margin each side = 190x277) */
   .a4-container {
-    width: 210mm;
-    max-width: 210mm;
+    width: 190mm;
+    max-width: 190mm;
     margin: 0;
     padding: 0;
   }
 
   .report-page {
-    width: 210mm !important;
-    min-height: 297mm !important;
-    height: 297mm !important;
-    max-width: 210mm !important;
+    width: 190mm !important;
+    height: 277mm !important;
+    max-width: 190mm !important;
+    max-height: 277mm !important;
     margin: 0 !important;
-    padding: 10mm !important;
+    padding: 8mm !important;
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
     background: white !important;
-    page-break-after: always !important;
-    page-break-inside: avoid !important;
-    break-after: page !important;
-    break-inside: avoid !important;
-    overflow: hidden !important;
     box-sizing: border-box !important;
+
+    break-after: page !important;
+    page-break-after: always !important;
+
+    /* Avoid browser splitting a page container */
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+
+    /* If something is larger than the page, clip instead of splitting */
+    overflow: hidden !important;
   }
 
   .report-page:last-child {
-    page-break-after: auto !important;
     break-after: auto !important;
+    page-break-after: auto !important;
   }
 
-  /* Keep all elements exactly as they appear on screen */
+  /* Keep cards/tables together */
   .thermogram-card,
   .info-card,
   .data-table,
   table,
-  img {
-    page-break-inside: avoid !important;
+  .report-header,
+  .report-section {
     break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
-  /* Ensure images maintain their aspect ratio */
+  /* Images: keep proportion and never split */
   img {
+    display: block;
     max-width: 100% !important;
     height: auto !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
+  /* Thermogram images are the main split culprit: constrain height */
   .thermogram-image {
-    max-height: 120mm !important;
-    width: auto !important;
+    width: 100% !important;
+    max-height: 90mm !important;
     object-fit: contain !important;
   }
 
@@ -325,22 +335,21 @@
   }
 }
 
-/* A4 Preview Mode (screen) - Same as print */
+/* A4 Preview Mode (screen) - mirror print box */
 @media screen {
   .a4-container {
-    width: 210mm;
-    max-width: 210mm;
+    width: 190mm;
+    max-width: 190mm;
     margin: 0 auto;
   }
 
   .report-page {
-    width: 210mm;
-    max-width: 210mm;
-    min-height: 297mm;
-    height: 297mm;
+    width: 190mm;
+    max-width: 190mm;
+    height: 277mm;
     margin: 20px auto;
     overflow: hidden;
     box-sizing: border-box;
-    padding: 10mm;
+    padding: 8mm;
   }
 }
