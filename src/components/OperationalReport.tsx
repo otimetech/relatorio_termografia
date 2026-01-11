@@ -137,15 +137,15 @@ const OperationalReport = ({
       </div>
 
       {/* Feedback Section */}
-      <div className="feedback-section">
-        <div className="mb-4">
-          <label className="text-sm font-medium">Observações/Feedback:</label>
-          <div className="mt-2 h-16 border-b-2 border-dashed border-border"></div>
+      <div className="feedback-section print:mt-2 print:pt-2 print:border-t print:border-border print:break-inside-avoid">
+        <div className="mb-4 print:mb-2">
+          <label className="text-sm font-medium print:text-[10px]">Observações/Feedback:</label>
+          <div className="mt-2 print:mt-1 h-16 print:h-10 border-b-2 border-dashed border-border"></div>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-medium">Manutenção realizada:</span>
+        <div className="flex items-center gap-4 print:gap-2">
+          <span className="text-sm font-medium print:text-[10px]">Manutenção realizada:</span>
           <div className="flex-1 border-b-2 border-dashed border-border"></div>
-          <span className="text-sm text-muted-foreground">Data: ___/___/___</span>
+          <span className="text-sm text-muted-foreground print:text-[10px]">Data: ___/___/___</span>
         </div>
       </div>
     </div>;
