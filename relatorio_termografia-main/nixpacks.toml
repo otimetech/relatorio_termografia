@@ -1,25 +1,8 @@
-# Nixpacks configuration for Coolify deployment
-# This file ensures consistent build behavior across environments
-
-[providers]
-# Do not auto-detect package managers, use npm explicitly
-nodejs = "22"
+[phases.setup]
+nixPkgs = ["nodejs_22"]
 
 [phases.install]
-# Force npm ci instead of bun
 cmds = ["npm ci"]
 
 [phases.build]
-# Use explicit npm build command
 cmds = ["npm run build"]
-
-[phases.start]
-# Served via Caddy (configured by Coolify)
-# No custom start command needed for SPA
-
-[env]
-# Optimize build for CI/CD environments
-NIXPACKS_NODE_PNPM = "false"
-NIXPACKS_NODE_BUN = "false"
-NODE_ENV = "production"
-NPM_CONFIG_PRODUCTION = "false"
