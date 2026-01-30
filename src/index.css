@@ -1,0 +1,393 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+/* Design System for JundPred Thermography Report */
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 150 10% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 150 10% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 10% 15%;
+
+    --primary: 145 63% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 145 10% 94%;
+    --secondary-foreground: 145 63% 25%;
+
+    --muted: 150 5% 94%;
+    --muted-foreground: 150 5% 45%;
+
+    --accent: 45 100% 51%;
+    --accent-foreground: 150 10% 15%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 150 10% 88%;
+    --input: 150 10% 88%;
+    --ring: 145 63% 25%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 150 10% 10%;
+    --foreground: 0 0% 95%;
+
+    --card: 150 10% 12%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 150 10% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 145 63% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 150 10% 20%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 150 10% 20%;
+    --muted-foreground: 150 5% 60%;
+
+    --accent: 45 100% 51%;
+    --accent-foreground: 150 10% 15%;
+
+    --destructive: 0 62.8% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 150 10% 25%;
+    --input: 150 10% 25%;
+    --ring: 145 63% 40%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .report-page {
+    @apply bg-card shadow-lg rounded-lg p-8 mb-8 border border-border;
+  }
+
+  .report-header {
+    @apply border-b border-border pb-6 mb-6;
+  }
+
+  .report-section {
+    @apply mb-8;
+  }
+
+  .report-title {
+    @apply text-2xl font-bold text-primary mb-4;
+  }
+
+  .report-subtitle {
+    @apply text-lg font-semibold text-foreground mb-3;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .status-normal {
+    background-color: hsl(var(--success) / 0.1);
+    color: hsl(var(--success));
+    border: 1px solid hsl(var(--success) / 0.2);
+  }
+
+  .status-alert {
+    background-color: hsl(var(--warning) / 0.1);
+    color: hsl(var(--warning));
+    border: 1px solid hsl(var(--warning) / 0.2);
+  }
+
+  .status-critical {
+    background-color: hsl(var(--destructive) / 0.1);
+    color: hsl(var(--destructive));
+    border: 1px solid hsl(var(--destructive) / 0.2);
+  }
+
+  .status-maintenance {
+    @apply bg-muted text-muted-foreground border border-border;
+  }
+
+  .data-table {
+    @apply w-full border-collapse;
+  }
+
+  .data-table th {
+    @apply bg-primary text-primary-foreground text-left px-4 py-3 text-sm font-semibold;
+  }
+
+  .data-table td {
+    @apply px-4 py-3 text-sm border-b border-border;
+  }
+
+  .data-table tr:hover td {
+    @apply bg-muted/50;
+  }
+
+  .thermogram-card {
+    @apply bg-card border border-border rounded-lg overflow-hidden shadow-md;
+  }
+
+  .thermogram-image {
+    @apply w-full h-auto object-cover;
+  }
+
+  .image-placeholder {
+    @apply bg-muted/30 border-2 border-dashed border-muted-foreground/30 flex flex-col items-center justify-center;
+  }
+
+  .temperature-reading {
+    @apply font-mono text-lg font-bold;
+  }
+
+  .temperature-high {
+    @apply text-destructive;
+  }
+
+  .temperature-medium {
+    @apply text-warning;
+  }
+
+  .temperature-normal {
+    @apply text-success;
+  }
+
+  .info-card {
+    @apply bg-secondary/50 rounded-lg p-4 border border-border;
+  }
+
+  .contact-info {
+    @apply text-sm text-muted-foreground;
+  }
+
+  .recommendation-list {
+    @apply list-disc list-inside space-y-2 text-sm text-foreground;
+  }
+
+  .feedback-section {
+    @apply border-t border-dashed border-border pt-4 mt-6;
+  }
+}
+
+@layer utilities {
+  .print-break {
+    page-break-after: always;
+  }
+}
+
+/* A4 Print Styles - match A4 page box (Chrome/Edge friendly) */
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  /* Content box inside @page margins (A4 210x297 - 10mm margin each side = 190x277) */
+  .a4-container {
+    width: 190mm;
+    max-width: 190mm;
+    margin: 0;
+    padding: 0;
+  }
+
+  .report-page {
+    width: 190mm !important;
+    height: 277mm !important;
+    max-width: 190mm !important;
+    max-height: 277mm !important;
+    margin: 0 !important;
+    padding: 8mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: white !important;
+    box-sizing: border-box !important;
+
+    break-after: page !important;
+    page-break-after: always !important;
+
+    /* Avoid browser splitting a page container */
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+
+    /* If something is larger than the page, clip instead of splitting */
+    overflow: hidden !important;
+  }
+
+  .report-page:last-child {
+    break-after: auto !important;
+    page-break-after: auto !important;
+  }
+
+  /* Keep cards/tables together */
+  .thermogram-card,
+  .info-card,
+  .data-table,
+  table,
+  .report-header,
+  .report-section {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Images: keep proportion and never split */
+  img {
+    display: block;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Cover logo: fixed size in print */
+  img.cover-logo {
+    height: 12mm !important;
+    width: auto !important;
+    max-width: 55mm !important;
+  }
+
+  /* Cover image: fixed size in print */
+  img.cover-image {
+    height: 80mm !important;
+    width: auto !important;
+    max-width: 140mm !important;
+  }
+
+  /* Header logo: fixed size in print */
+  img.header-logo {
+    height: 10mm !important;
+    width: auto !important;
+    max-width: 45mm !important;
+  }
+
+  /* Signature: fixed size in print */
+  img.signature-image {
+    height: 12mm !important;
+    width: auto !important;
+    max-width: 50mm !important;
+  }
+
+  /* Report images (thermogram/panel): fixed size in print */
+  img.report-image {
+    height: 35mm !important;
+    width: auto !important;
+    max-width: 85mm !important;
+    object-fit: contain !important;
+  }
+
+  /* Thermogram images fallback */
+  .thermogram-image {
+    width: 100% !important;
+    max-height: 35mm !important;
+    object-fit: contain !important;
+  }
+
+  /* Ensure colors print correctly */
+  .data-table th,
+  .bg-primary {
+    background-color: hsl(145 63% 25%) !important;
+    color: white !important;
+  }
+
+  .bg-success {
+    background-color: hsl(142 71% 45%) !important;
+  }
+
+  .bg-warning {
+    background-color: hsl(38 92% 50%) !important;
+  }
+
+  .bg-destructive {
+    background-color: hsl(0 72% 51%) !important;
+  }
+
+  .bg-muted-foreground {
+    background-color: hsl(150 5% 45%) !important;
+  }
+
+  .bg-border {
+    background-color: hsl(150 10% 88%) !important;
+  }
+}
+
+/* A4 Preview Mode (screen) - mirror print box */
+@media screen {
+  .a4-container {
+    width: 190mm;
+    max-width: 190mm;
+    margin: 0 auto;
+  }
+
+  .report-page {
+    width: 190mm;
+    max-width: 190mm;
+    height: 277mm;
+    margin: 20px auto;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 8mm;
+  }
+}
