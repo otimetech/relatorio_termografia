@@ -7,7 +7,7 @@ const ReportHeader = () => {
         className="header-logo h-8 w-auto"
       />
       <img
-        src="/logo-brasil.jpg"
+        src="/logo_brasil.jpg"
         alt="Logo Brasil"
         className="header-logo h-8 w-auto"
       />

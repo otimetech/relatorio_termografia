@@ -165,7 +165,7 @@ const Index = () => {
           <div className="flex-1">
             <div className="flex justify-between items-start mb-4">
               <img src="/logo-jundpred.jpg" alt="JundPred - Manutenção Preditiva" className="cover-logo h-8 w-auto" />
-              <img src="/logo-brasil.jpg" alt="Logo Brasil" className="cover-logo h-8 w-auto" />
+              <img src="/logo_brasil.jpg" alt="Logo Brasil" className="cover-logo h-8 w-auto" />
             </div>
 
             <div className="bg-primary text-primary-foreground py-4 px-6 rounded-lg mb-8">
