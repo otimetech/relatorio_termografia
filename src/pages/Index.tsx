@@ -83,6 +83,7 @@ const Index = () => {
     id: index + 1,
     name: `${t.localizacao} - ${t.tag}`,
     sector: t.setor,
+    tag: t.tag,
     status: mapApiStatusToStatusType(t.status),
     observation: `VIDE R.O. ${String(index + 1).padStart(2, "0")}`
   }));
@@ -92,6 +93,7 @@ const Index = () => {
     id: index + 1,
     name: `${t.localizacao} - ${t.tag}`,
     sector: t.setor,
+    tag: t.tag,
     status: mapApiStatusToStatusType(t.status),
     statusLabel: t.status.toUpperCase()
   }));

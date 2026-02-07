@@ -4,6 +4,7 @@ interface Equipment {
   id: number;
   name: string;
   sector: string;
+  tag: string;
   status: "normal" | "alert" | "critical" | "maintenance" | "off";
   statusLabel?: string;
   observation?: string;
@@ -26,6 +27,7 @@ const EquipmentTable = ({ title, equipment, showObservation = false }: Equipment
               <th className="w-16">Qtd.</th>
               <th>Painéis</th>
               <th>Setor</th>
+              <th>Tag</th>
               <th>Status</th>
               {showObservation && <th>Obs.</th>}
             </tr>
@@ -36,6 +38,7 @@ const EquipmentTable = ({ title, equipment, showObservation = false }: Equipment
                 <td className="font-mono">{item.id}</td>
                 <td>{item.name}</td>
                 <td>{item.sector}</td>
+                <td>{item.tag}</td>
                 <td>
                   <StatusBadge status={item.status} label={item.statusLabel} />
                 </td>
