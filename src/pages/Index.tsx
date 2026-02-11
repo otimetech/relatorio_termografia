@@ -137,13 +137,43 @@ const Index = () => {
   const operationalReports = termografias.filter(t => t.status.toLowerCase() !== "normal");
 
   // Formatar data
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("pt-BR");
+  const formatDate = (dateStr?: string) => {
+    if (!dateStr) return "";
+    const cleaned = dateStr.trim();
+    const brExact = cleaned.match(/^\d{2}\/\d{2}\/\d{4}$/);
+    if (brExact) {
+      return cleaned;
+    }
+    const parsed = new Date(cleaned);
+    if (!Number.isNaN(parsed.getTime())) {
+      return parsed.toLocaleDateString("pt-BR");
+    }
+    const brMatch = cleaned.match(/(\d{2})[\/\-](\d{2})[\/\-](\d{4})/);
+    if (brMatch) {
+      const day = Number(brMatch[1]);
+      const month = Number(brMatch[2]) - 1;
+      const year = Number(brMatch[3]);
+      const fallback = new Date(year, month, day);
+      if (!Number.isNaN(fallback.getTime())) {
+        return fallback.toLocaleDateString("pt-BR");
+      }
+    }
+    const isoMatch = cleaned.match(/(\d{4})[\/\-](\d{2})[\/\-](\d{2})/);
+    if (isoMatch) {
+      const year = Number(isoMatch[1]);
+      const month = Number(isoMatch[2]) - 1;
+      const day = Number(isoMatch[3]);
+      const fallback = new Date(year, month, day);
+      if (!Number.isNaN(fallback.getTime())) {
+        return fallback.toLocaleDateString("pt-BR");
+      }
+    }
+    return "";
   };
 
   // Formatar data como mês/ano
-  const formatMonthYear = (dateStr: string) => {
+  const formatMonthYear = (dateStr?: string) => {
+    if (!dateStr) return "";
     const date = new Date(dateStr);
     return date.toLocaleDateString("pt-BR", { month: "long", year: "numeric" }).replace(/de /g, "");
   };
@@ -224,7 +254,7 @@ const Index = () => {
 
           <div className="mb-8">
             
-            <p className="text-foreground leading-relaxed">Referente à inspeção realizada nos equipamentos na data de <strong>{formatDate(relatorio.dataExe)}</strong>.
+            <p className="text-foreground leading-relaxed">Referente à inspeção realizada nos equipamentos na data de <strong>{relatorio.data_execucao || (relatorio as { data_Execucao?: string }).data_Execucao || relatorio.dataExe}</strong>.
               <br />
               Relatório Nº <strong>{relatorio.n_relatorio}</strong>.
             </p>

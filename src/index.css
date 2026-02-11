@@ -278,7 +278,7 @@
   }
 
   .info-card {
-    @apply bg-secondary/50 rounded-lg p-4 border border-border;
+    @apply bg-secondary/50 rounded-lg p-2 border border-border;
   }
 
   .contact-info {

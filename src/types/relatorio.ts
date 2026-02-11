@@ -29,7 +29,9 @@ export interface Relatorio {
   id: number;
   created_at: string;
   tipo: string;
-  dataExe: string;
+  data_execucao: string;
+  data_Execucao?: string;
+  dataExe?: string;
   id_cliente: number;
   status: string;
   n_relatorio: string;
