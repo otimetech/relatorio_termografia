@@ -38,6 +38,7 @@ export interface Relatorio {
   id_user: number;
   id_user_aprovador?: number;
   tipoVazamento: string | null;
+  num_revisao?: number | string;
   cliente?: Cliente;
   usuario?: Usuario;
   aprovador?: Usuario;

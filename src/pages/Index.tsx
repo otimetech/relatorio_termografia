@@ -70,6 +70,9 @@ const Index = () => {
     aprovador,
     termografias
   } = data;
+  const relatorioNumero = [relatorio.id, relatorio.num_revisao]
+    .filter(value => value !== null && value !== undefined && String(value).trim() !== "")
+    .join(" ");
 
   // Usar cliente do response ou do relatorio
   const clienteData = cliente || relatorio.cliente;
@@ -203,7 +206,7 @@ const Index = () => {
             <div className="bg-primary text-primary-foreground py-4 px-6 rounded-lg mb-8">
               <h2 className="text-2xl font-bold">RELATÓRIO DE MANUTENÇÃO PREDITIVA</h2>
               <p className="text-lg mt-2">REF. INSPEÇÃO {relatorio.tipo?.toUpperCase() || "TERMOGRÁFICA"}</p>
-              <p className="text-sm mt-2 opacity-80">Nº {relatorio.n_relatorio}</p>
+              <p className="text-sm mt-2 opacity-80">Nº {relatorioNumero}</p>
             </div>
 
             <div className="mb-8 flex justify-center items-center">
@@ -256,7 +259,7 @@ const Index = () => {
             
             <p className="text-foreground leading-relaxed">Referente à inspeção realizada nos equipamentos na data de <strong>{relatorio.data_execucao || (relatorio as { data_Execucao?: string }).data_Execucao || relatorio.dataExe}</strong>.
               <br />
-              Relatório Nº <strong>{relatorio.n_relatorio}</strong>.
+              Relatório Nº <strong>{relatorioNumero}</strong>.
             </p>
           </div>
 
