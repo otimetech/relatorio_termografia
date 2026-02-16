@@ -79,7 +79,7 @@ export const mapApiStatusToStatusType = (status: string): StatusType => {
   if (statusLower === "normal") return "normal";
   if (statusLower === "alerta") return "alert";
   if (statusLower === "crítico" || statusLower === "critico") return "critical";
-  if (statusLower === "manutenção" || statusLower === "manutencao") return "maintenance";
+  if (statusLower === "manutenção" || statusLower === "manutencao" || statusLower === "pendente") return "maintenance";
   if (statusLower === "desligado") return "off";
   return "normal";
 };

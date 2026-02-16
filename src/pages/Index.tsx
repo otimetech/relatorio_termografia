@@ -81,8 +81,11 @@ const Index = () => {
   // Usar aprovador do response ou do relatorio
   const aprovadorData = aprovador || relatorio.aprovador;
 
-  // Filtrar termografias com problemas (alerta ou crítico)
-  const criticalEquipment = termografias.filter(t => t.status.toLowerCase() !== "normal").map((t, index) => ({
+  // Filtrar termografias com problemas (alerta ou critico)
+  const criticalEquipment = termografias.filter(t => {
+    const status = mapApiStatusToStatusType(t.status);
+    return status === "alert" || status === "critical";
+  }).map((t, index) => ({
     id: index + 1,
     name: `${t.localizacao} - ${t.tag}`,
     sector: t.setor,
@@ -136,8 +139,28 @@ const Index = () => {
     color: "bg-destructive"
   }];
 
-  // Termografias com dados para relatório operacional (que têm status anormal)
-  const operationalReports = termografias.filter(t => t.status.toLowerCase() !== "normal");
+  // Termografias com dados para relatorio operacional (apenas alerta ou critico)
+  const operationalReports = termografias.filter(t => {
+    const status = mapApiStatusToStatusType(t.status);
+    return status === "alert" || status === "critical";
+  });
+
+  const chunkEquipment = <T,>(items: T[], pageSize: number) => {
+    if (pageSize <= 0) return [items];
+    const chunks: T[][] = [];
+    for (let i = 0; i < items.length; i += pageSize) {
+      chunks.push(items.slice(i, i + pageSize));
+    }
+    return chunks.length > 0 ? chunks : [[]];
+  };
+
+  const rowsPerPage = {
+    withObservation: 13,
+    default: 15
+  };
+
+  const criticalEquipmentPages = chunkEquipment(criticalEquipment, rowsPerPage.withObservation);
+  const allEquipmentPages = chunkEquipment(allEquipment, rowsPerPage.default);
 
   // Formatar data
   const formatDate = (dateStr?: string) => {
@@ -346,22 +369,26 @@ const Index = () => {
         </div>
 
         {/* Critical Equipment List */}
-        {criticalEquipment.length > 0 && <div className="report-page print-break flex flex-col">
+        {criticalEquipmentPages.map((pageEquipment, pageIndex) => (
+          <div key={`critical-equipment-${pageIndex}`} className="report-page print-break flex flex-col">
             <div className="flex-1">
               <ReportHeader />
-              <EquipmentTable title="RESUMO DOS EQUIPAMENTOS EM ALARME / CRÍTICOS" equipment={criticalEquipment} showObservation={true} />
+              <EquipmentTable title="RESUMO DOS EQUIPAMENTOS EM ALARME / CRÍTICOS" equipment={pageEquipment} showObservation={true} />
             </div>
             <ReportFooter />
-          </div>}
+          </div>
+        ))}
 
         {/* Full Equipment List */}
-        <div className="report-page print-break flex flex-col">
-          <div className="flex-1">
-            <ReportHeader />
-            <EquipmentTable title="LISTAGEM GERAL DOS EQUIPAMENTOS" equipment={allEquipment} />
+        {allEquipmentPages.map((pageEquipment, pageIndex) => (
+          <div key={`all-equipment-${pageIndex}`} className="report-page print-break flex flex-col">
+            <div className="flex-1">
+              <ReportHeader />
+              <EquipmentTable title="LISTAGEM GERAL DOS EQUIPAMENTOS" equipment={pageEquipment} />
+            </div>
+            <ReportFooter />
           </div>
-          <ReportFooter />
-        </div>
+        ))}
 
         {/* Status Overview */}
         <div className="report-page print-break flex flex-col">
