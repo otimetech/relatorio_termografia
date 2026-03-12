@@ -156,7 +156,7 @@ const Index = () => {
 
   const rowsPerPage = {
     withObservation: 13,
-    default: 15
+    default: 12
   };
 
   const criticalEquipmentPages = chunkEquipment(criticalEquipment, rowsPerPage.withObservation);
