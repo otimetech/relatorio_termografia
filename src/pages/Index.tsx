@@ -1,6 +1,7 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import ReportHeader from "@/components/ReportHeader";
 import ReportFooter from "@/components/ReportFooter";
+import ReportCoverImage from "@/components/ReportCoverImage";
 import StatusBadge from "@/components/StatusBadge";
 import EquipmentTable from "@/components/EquipmentTable";
 import OperationalReport from "@/components/OperationalReport";
@@ -232,13 +233,10 @@ const Index = () => {
               <p className="text-sm mt-2 opacity-80">Nº {relatorioNumero}</p>
             </div>
 
-            <div className="mb-8 flex justify-center items-center">
-              <img src="/termografia-cover.jpg" alt="Imagem Termográfica" className="cover-image rounded-lg shadow-lg" style={{ width: "320px", height: "240px", objectFit: "cover" }} />
-            </div>
-
-            {clienteData?.logo && <div className="mb-8">
-              <img src={clienteData.logo} alt={clienteData.nome} className="cover-logo h-20 w-auto mx-auto" />
-            </div>}
+            <ReportCoverImage
+              src="/alinhamento-cover.jpg"
+              alt="Imagem de Alinhamento a Laser"
+            />
 
             {clienteData && <div className="bg-secondary/30 rounded-lg p-4 mb-6 text-center">
                 <h3 className="font-semibold text-primary mb-2">Cliente / Unidade</h3>
@@ -253,6 +251,11 @@ const Index = () => {
               </div>
               
             </div>
+
+           {clienteData?.logo && <div className="mb-8">
+              <img src={clienteData.logo} alt={clienteData.nome} className="client-cover-logo h-40 w-auto mx-auto object-contain" />
+            </div>}
+
           </div>
 
           <ReportFooter />
