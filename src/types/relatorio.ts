@@ -62,6 +62,13 @@ export interface Termografia {
   recomendacao: string;
   tag: string;
   id_user: number;
+  bool_corrente?: boolean | null;
+  a1?: string | number | null;
+  a2?: string | number | null;
+  a3?: string | number | null;
+  b1?: string | number | null;
+  b2?: string | number | null;
+  b3?: string | number | null;
 }
 
 export interface RelatorioResponse {
