@@ -102,7 +102,7 @@ const Index = () => {
     sector: t.setor,
     tag: t.tag,
     status: mapApiStatusToStatusType(t.status),
-    statusLabel: t.status.toUpperCase()
+    statusLabel: mapApiStatusToStatusType(t.status) === "maintenance" ? "MANUTENÇÃO" : t.status.toUpperCase()
   }));
 
   // Calcular estatísticas de status
@@ -204,6 +204,13 @@ const Index = () => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("pt-BR", { month: "long", year: "numeric" }).replace(/de /g, "");
   };
+
+  const formatEmissivity = (value?: string | number | null) => {
+    if (value === null || value === undefined) return "N/A";
+    const normalized = String(value).trim();
+    return normalized === "" ? "N/A" : normalized;
+  };
+
   return <div className="min-h-screen bg-background py-8 px-4 print:p-0 print:bg-white">
       {/* Print Button */}
       <div className="no-print fixed top-4 right-4 z-50">
@@ -415,7 +422,7 @@ const Index = () => {
             </div>
 
             {/* Operational Reports */}
-            {operationalReports.map((termo, index) => <OperationalReport key={termo.id} id={String(index + 1).padStart(2, "0")} area={termo.setor} equipment={`${termo.localizacao} - ${termo.tag}`} components={termo.componente || "N/A"} date={formatDate(relatorio.dataExe)} status={mapApiStatusToStatusType(termo.status)} emissivity="0.95" maxTemp={termo.temp_aquecimento ? `${termo.temp_aquecimento} °C` : "N/A"} maxAdmissibleTemp={termo.temp_admissivel ? `${termo.temp_admissivel}°C` : "N/A"} distance="≈1 m" thermalImage={termo.foto_painel || ""} realImage={termo.foto_camera || ""} showCurrentMeasurements={termo.bool_corrente === true} a1={termo.a1} a2={termo.a2} a3={termo.a3} b1={termo.b1} b2={termo.b2} b3={termo.b3} readings={termo.temp_aquecimento ? [{
+            {operationalReports.map((termo, index) => <OperationalReport key={termo.id} id={String(index + 1).padStart(2, "0")} area={termo.setor} equipment={`${termo.localizacao} - ${termo.tag}`} components={termo.componente || "N/A"} date={formatDate(relatorio.dataExe)} status={mapApiStatusToStatusType(termo.status)} emissivity={formatEmissivity(termo.emissividade ?? termo.emissivity)} maxTemp={termo.temp_aquecimento ? `${termo.temp_aquecimento} °C` : "N/A"} maxAdmissibleTemp={termo.temp_admissivel ? `${termo.temp_admissivel}°C` : "N/A"} distance="≈1 m" thermalImage={termo.foto_painel || ""} realImage={termo.foto_camera || ""} showCurrentMeasurements={termo.bool_corrente === true} a1={termo.a1} a2={termo.a2} a3={termo.a3} b1={termo.b1} b2={termo.b2} b3={termo.b3} readings={termo.temp_aquecimento ? [{
           label: "Temp. Medida",
           value: `${termo.temp_aquecimento} °C`
         }, {

@@ -69,6 +69,8 @@ export interface Termografia {
   b1?: string | number | null;
   b2?: string | number | null;
   b3?: string | number | null;
+  emissividade?: string | number | null;
+  emissivity?: string | number | null;
 }
 
 export interface RelatorioResponse {
@@ -82,11 +84,16 @@ export interface RelatorioResponse {
 export type StatusType = "normal" | "alert" | "critical" | "maintenance" | "off";
 
 export const mapApiStatusToStatusType = (status: string): StatusType => {
-  const statusLower = status.toLowerCase();
-  if (statusLower === "normal") return "normal";
-  if (statusLower === "alerta") return "alert";
-  if (statusLower === "crítico" || statusLower === "critico") return "critical";
-  if (statusLower === "manutenção" || statusLower === "manutencao" || statusLower === "pendente") return "maintenance";
-  if (statusLower === "desligado") return "off";
+  const normalizedStatus = status
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+
+  if (normalizedStatus === "normal") return "normal";
+  if (normalizedStatus === "alerta") return "alert";
+  if (normalizedStatus === "critico" || normalizedStatus === "crítico") return "critical";
+  if (normalizedStatus.includes("manutencao") || normalizedStatus === "pendente") return "maintenance";
+  if (normalizedStatus === "desligado") return "off";
   return "normal";
 };

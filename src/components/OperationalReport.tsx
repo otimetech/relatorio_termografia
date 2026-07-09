@@ -106,24 +106,24 @@ const OperationalReport = ({
       </div>
 
       {/* Technical Data */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3 print:mb-2">
-        <div className="info-card">
-          <p className="text-xs text-muted-foreground mb-1">Emissividade</p>
-          <p className="font-mono font-semibold">{emissivity}</p>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2 print:gap-1 print:mb-1 print:break-inside-avoid">
+        <div className="info-card compact-info-card">
+          <p className="compact-info-label text-muted-foreground">Emissividade</p>
+          <p className="compact-info-value font-mono font-semibold">{emissivity}</p>
         </div>
-        <div className="info-card">
-          <p className="text-xs text-muted-foreground mb-1">Temp. Medida</p>
-          <p className={`temperature-reading ${getTempClass(maxTemp, maxAdmissibleTemp)}`}>
+        <div className="info-card compact-info-card">
+          <p className="compact-info-label text-muted-foreground">Temp. Medida</p>
+          <p className={`temperature-reading compact-info-value ${getTempClass(maxTemp, maxAdmissibleTemp)}`}>
             {maxTemp}
           </p>
         </div>
-        <div className="info-card">
-          <p className="text-xs text-muted-foreground mb-1">Temp. Máx. Admissível</p>
-          <p className="font-mono font-semibold">{maxAdmissibleTemp}</p>
+        <div className="info-card compact-info-card">
+          <p className="compact-info-label text-muted-foreground">Temp. Máx. Admissível</p>
+          <p className="compact-info-value font-mono font-semibold">{maxAdmissibleTemp}</p>
         </div>
-        <div className="info-card">
-          <p className="text-xs text-muted-foreground mb-1">Distância</p>
-          <p className="font-mono font-semibold">{distance}</p>
+        <div className="info-card compact-info-card">
+          <p className="compact-info-label text-muted-foreground">Distância</p>
+          <p className="compact-info-value font-mono font-semibold">{distance}</p>
         </div>
       </div>
 
