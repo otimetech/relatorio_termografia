@@ -2,6 +2,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import ReportHeader from "@/components/ReportHeader";
 import ReportFooter from "@/components/ReportFooter";
 import ReportCoverImage from "@/components/ReportCoverImage";
+import ServicesGrid from "@/components/ServicesGrid";
 import StatusBadge from "@/components/StatusBadge";
 import EquipmentTable from "@/components/EquipmentTable";
 import OperationalReport from "@/components/OperationalReport";
@@ -481,49 +482,8 @@ const Index = () => {
             <ReportHeader />
             
             <h2 className="report-title">NOSSOS SERVIÇOS</h2>
-            
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              {[{
-              title: "Análise de Vibrações",
-              desc: "Off-line e on-line, solo e estrutural"
-            }, {
-              title: "Inspeção Termográfica",
-              desc: "Painéis, cabines, fornos, mancais, etc."
-            }, {
-              title: "Alinhamento a Laser",
-              desc: "De eixos e polias + calços calibrados"
-            }, {
-              title: "Balanceamento Dinâmico",
-              desc: "Realizado no local – 1 a 4 planos"
-            }, {
-              title: "ODS (Estrutural)",
-              desc: "Análise de torção de base com correção"
-            }, {
-              title: "MCA – Inspeção Elétrica",
-              desc: "Avaliação de circuitos em motores elétricos"
-            }, {
-              title: "Análise de Óleo",
-              desc: "Lubrificante / pacote industrial"
-            }, {
-              title: "Técnicas Multiparâmetro",
-              desc: "Aplicação de diversas técnicas preditivas"
-            }, {
-              title: "Treinamentos de Preditiva",
-              desc: "Análise de vibração e Termografia – N1"
-            }, {
-              title: "Monitoramento Online",
-              desc: "Sensor online de vibração"
-            }, {
-              title: "Inspeção Ultrassônica",
-              desc: "Ar comprimido, vapor, gases e elétrica"
-            }, {
-              title: "Inspeção Sensitiva",
-              desc: "Abordagem para identificar falhas incipientes"
-            }].map((service, index) => <div key={index} className="info-card hover:shadow-md transition-shadow">
-                  <h4 className="font-semibold text-primary">{service.title}</h4>
-                  <p className="text-sm text-muted-foreground">{service.desc}</p>
-                </div>)}
-            </div>
+
+            <ServicesGrid />
             <ReportFooter />
           </div>
         </div>
